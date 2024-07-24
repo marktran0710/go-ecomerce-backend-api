@@ -1,6 +1,6 @@
 package main
 
-import "github.com/marktran77/go-ecomerce-backend-api/internal/routers"
+import routers "github.com/marktran77/go-ecomerce-backend-api/internal/routers"
 
 func main() {
 	r := routers.NewRouter()
