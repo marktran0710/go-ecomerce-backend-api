@@ -4,20 +4,22 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/marktran77/go-ecomerce-backend-api/internal/services"
 )
 
-type UserController struct{}
-
-func NewUserController() *UserController {
-	return &UserController{}
+type UserController struct {
+	userService services.IUserService
 }
 
-func GetUserByID(c *gin.Context) {
-	name := c.Param("name")
-	uid := c.Query("uid")
+func NewUserController() *UserController {
+	return &UserController{
+		userService: services.NewUserService(),
+	}
+}
+
+func (uc *UserController) GetUserByID(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
-		"message": "pong...ping" + name,
-		"uid":     uid,
+		"message": uc.userService.GetInfoUser(),
 		"users":   []string{"cr7", "m10", "hautran"},
 	})
 }
