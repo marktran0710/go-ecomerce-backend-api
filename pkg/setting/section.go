@@ -1,6 +1,7 @@
 package setting
 
 type Config struct {
+	Mysql MySQLSetting `mapstructure:"mysql"`
 }
 
 type MySQLSetting struct {
