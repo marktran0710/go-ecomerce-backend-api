@@ -6,4 +6,7 @@ func Run() {
 	InitMysql()
 	InitRedis()
 
+	r := InitRouter()
+
+	r.Run(":8002")
 }
