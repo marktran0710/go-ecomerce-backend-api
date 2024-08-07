@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/marktran77/go-ecomerce-backend-api/global"
+	"github.com/marktran77/go-ecomerce-backend-api/internal/po"
 	"go.uber.org/zap"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -17,7 +18,7 @@ func checkErrorPanic(err error, errString string) {
 	}
 }
 
-func main() {
+func InitMysql() {
 	m := global.Config.Mysql
 	// refer https://github.com/go-sql-driver/mysql#dsn-data-source-name for details
 	dsn := "%s:%s@tcp(%s:%v)/%s?charset=utf8mb4&parseTime=True&loc=Local"
@@ -29,8 +30,11 @@ func main() {
 	global.Logger.Info("Initializing MySql Successfully")
 	global.Mdb = db
 
+	setPool()
+	migrateTables()
+
 }
-func SetPool() {
+func setPool() {
 	m := global.Config.Mysql
 	sqlDb, err := global.Mdb.DB()
 	if err != nil {
@@ -43,5 +47,13 @@ func SetPool() {
 }
 
 func migrateTables() {
+	err := global.Mdb.AutoMigrate(
+		&po.User{},
+		&po.Role{},
+	)
+
+	if err != nil {
+		fmt.Println("Migrating tables error:", err)
+	}
 
 }
