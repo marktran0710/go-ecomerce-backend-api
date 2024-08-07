@@ -6,7 +6,7 @@ import (
 
 type Role struct {
 	gorm.Model
-	ID       int    `gorm:"column:uuid; type:int; not null; index:idx_uuid; primaryKey; autoIncrement; comment:primary Key is ID"`
+	ID       int64  `gorm:"column:id; type:int; not null; index:idx_id; primaryKey; autoIncrement; comment:primary Key is ID"`
 	RoleName string `gorm:"column:role_name"`
 	RoleNote string `gorm:"column:role_note; type:text;"`
 }

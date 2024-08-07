@@ -38,7 +38,7 @@ func setPool() {
 	m := global.Config.Mysql
 	sqlDb, err := global.Mdb.DB()
 	if err != nil {
-		fmt.Println("mysql error %s::", err)
+		fmt.Printf("mysql error %s::\n", err)
 	}
 
 	sqlDb.SetConnMaxIdleTime(time.Duration(m.MaxIdleConns))
