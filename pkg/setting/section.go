@@ -5,6 +5,14 @@ type Config struct {
 	Logger LoggerSetting `mapstructure:"logger"`
 }
 
+type RedisSetting struct {
+	Host string `mapstructure:"host"`
+	Port int `mapstructure:"port"`
+	Password string `mapstructure:"password"`
+	Database int `mapstructure:"database"`
+
+}
+
 type MySQLSetting struct {
 	Host            string `mapstructure:"host"`
 	Port            int    `mapstructure:"port"`

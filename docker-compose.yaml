@@ -8,7 +8,7 @@ services:
       MYSQL_ROOT_PASSWORD: 123
       MYSQL_DATABASE: shopdevgo
     ports:
-      - "39061:3306"
+      - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
 
@@ -16,7 +16,7 @@ services:
     image: redis:latest
     container_name: redis-go
     ports:
-      - "6379:6379"
+      - "6381:6379"
     volumes:
       - redis_data:/data
 volumes:
