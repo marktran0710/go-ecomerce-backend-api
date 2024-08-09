@@ -11,3 +11,11 @@
 {"level":"INFO","time":"2024-08-07T22:14:36.488+0700","caller":"initialize/mysql.go:30","msg":"Initializing MySql Successfully"}
 {"level":"INFO","time":"2024-08-07T22:15:46.075+0700","caller":"initialize/run.go:16","msg":"Config Log ok!","ok":"success"}
 {"level":"INFO","time":"2024-08-07T22:15:46.080+0700","caller":"initialize/mysql.go:30","msg":"Initializing MySql Successfully"}
+{"level":"INFO","time":"2024-08-09T22:40:27.188+0700","caller":"initialize/run.go:16","msg":"Config Log ok!","ok":"success"}
+{"level":"INFO","time":"2024-08-09T22:40:27.303+0700","caller":"initialize/mysql.go:30","msg":"Initializing MySql Successfully"}
+{"level":"ERROR","time":"2024-08-09T22:40:27.664+0700","caller":"initialize/redis.go:25","msg":"Redis initialization Error:","error":"dial tcp: address 127.0.0.1: missing port in address","stacktrace":"github.com/marktran77/go-ecomerce-backend-api/internal/initialize.InitRedis\n\t/mnt/e/go-ecomerce-backend-api/internal/initialize/redis.go:25\ngithub.com/marktran77/go-ecomerce-backend-api/internal/initialize.Run\n\t/mnt/e/go-ecomerce-backend-api/internal/initialize/run.go:20\nmain.main\n\t/mnt/e/go-ecomerce-backend-api/cmd/server/main.go:10\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:271"}
+{"level":"INFO","time":"2024-08-09T22:41:50.672+0700","caller":"initialize/run.go:16","msg":"Config Log ok!","ok":"success"}
+{"level":"INFO","time":"2024-08-09T22:41:50.679+0700","caller":"initialize/mysql.go:30","msg":"Initializing MySql Successfully"}
+{"level":"INFO","time":"2024-08-09T22:46:13.653+0700","caller":"initialize/run.go:16","msg":"Config Log ok!","ok":"success"}
+{"level":"INFO","time":"2024-08-09T22:46:13.663+0700","caller":"initialize/mysql.go:30","msg":"Initializing MySql Successfully"}
+{"level":"INFO","time":"2024-08-09T22:46:13.894+0700","caller":"initialize/redis.go:45","msg":"value score is::","score":"100"}
