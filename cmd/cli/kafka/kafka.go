@@ -1,14 +1,17 @@
 package kafka
 
 import (
+	"context"
+	"encoding/json"
 	"strings"
 	"time"
 
+	"github.com/gin-gonic/gin"
 	kafka "github.com/segmentio/kafka-go"
 )
 
 var (
-	kafkaConsumner *kafka.Writer
+	kafkaProducer *kafka.Writer
 )
 
 const (
@@ -42,4 +45,37 @@ func getKafkaReader(kafkaURL, topic, groupID string) *kafka.Reader {
 type StockInfo struct {
 	Message string `json:"message"`
 	Type    string `json:"type"`
+}
+
+func newStock(msg, typeMsg string) *StockInfo {
+	return &StockInfo{
+		Message: msg,
+		Type:    typeMsg,
+	}
+}
+
+func actionStock(c *gin.Context) {
+	s := newStock(c.Query("msg"), c.Query("type"))
+	body := make(map[string]interface{})
+	body["action"] = "action"
+	body["info"] = s
+
+	jsonBody, _ := json.Marshal(body)
+
+	msg := kafka.Message{
+		Key:   []byte("action"),
+		Value: []byte(jsonBody),
+	}
+
+	err := kafkaProducer.WriteMessages(context.Background(), msg)
+	if err != nil {
+		c.JSON(200, gin.H{
+			"err": err.Error(),
+		})
+	}
+
+	c.JSON(200, gin.H{
+		"err": "",
+		"msg": "action successfully",
+	})
 }
