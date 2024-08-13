@@ -1,17 +1,25 @@
 package user
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/marktran77/go-ecomerce-backend-api/internal/controller"
+	"github.com/marktran77/go-ecomerce-backend-api/internal/repo"
+	"github.com/marktran77/go-ecomerce-backend-api/internal/services"
+)
 
 type UserRouter struct {
 }
 
 func (*UserRouter) InitUserRouter(Router *gin.RouterGroup) {
 	// public router
-	userRouterPublic := Router.Group("/user")
+	ur := repo.NewUserRepo()
+	us := services.NewUserService(ur)
+	userController := controller.NewUserController(us)
 
+	userRouterPublic := Router.Group("/user")
 	{
-		userRouterPublic.POST("/register")
-		userRouterPublic.POST("/otp")
+		userRouterPublic.POST("/register", userController.Register)
+		// userRouterPublic.POST("/otp")
 	}
 
 	// private router
