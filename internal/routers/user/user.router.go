@@ -2,9 +2,7 @@ package user
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/marktran77/go-ecomerce-backend-api/internal/controller"
-	"github.com/marktran77/go-ecomerce-backend-api/internal/repo"
-	"github.com/marktran77/go-ecomerce-backend-api/internal/services"
+	"github.com/marktran77/go-ecomerce-backend-api/internal/wire"
 )
 
 type UserRouter struct {
@@ -12,9 +10,7 @@ type UserRouter struct {
 
 func (*UserRouter) InitUserRouter(Router *gin.RouterGroup) {
 	// public router
-	ur := repo.NewUserRepo()
-	us := services.NewUserService(ur)
-	userController := controller.NewUserController(us)
+	userController, _ := wire.InitUserRouterHandler()
 
 	userRouterPublic := Router.Group("/user")
 	{
