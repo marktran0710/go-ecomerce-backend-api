@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/marktran77/go-ecomerce-backend-api/global"
-	"github.com/marktran77/go-ecomerce-backend-api/internal/po"
+	"github.com/marktran77/go-ecomerce-backend-api/internal/model"
 	"go.uber.org/zap"
 	"gorm.io/driver/mysql"
 	"gorm.io/gen"
@@ -32,7 +32,8 @@ func InitMysql() {
 	global.Mdb = db
 
 	setPool()
-	migrateTables()
+	migrateTables() // from model to tables using gorm
+	// genTableDAO() // from mysql to DAO using gorm-gen
 
 }
 func setPool() {
@@ -57,7 +58,8 @@ func genTableDAO() {
 	g.UseDB(global.Mdb) // reuse your gorm db
 
 	// Generate basic type-safe DAO API for struct `model.User` following conventions
-	// g.ApplyBasic(model.User{})
+	g.GenerateModel("go_crm_user")
+	// g.ApplyBasic(model.GoCrmUserV2{})
 
 	// Generate Type Safe API with Dynamic SQL defined on Querier interface for `model.User` and `model.Company`
 	// g.ApplyInterface(func(Querier) {}, model.User{}, model.Company{})
@@ -68,8 +70,9 @@ func genTableDAO() {
 
 func migrateTables() {
 	err := global.Mdb.AutoMigrate(
-		&po.User{},
-		&po.Role{},
+		// &po.User{},
+		// &po.Role{},
+		&model.GoCrmUserV2{},
 	)
 
 	if err != nil {

@@ -9,7 +9,7 @@ func (*UserRouter) InitUserRouter(Router *gin.RouterGroup) {
 	// public router
 
 	// private router
-	userRouterPrivate := Router.Group("/admin/user")
+	userRouterPrivate := Router.Group("/user")
 
 	{
 		userRouterPrivate.POST("/active_user")
