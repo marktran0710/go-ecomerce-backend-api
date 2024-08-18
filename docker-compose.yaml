@@ -3,7 +3,7 @@ version: "3.8"
 services:
   mysql:
     image: mysql
-    container_name: mysql-go
+    container_name: mysql-container
     environment:
       MYSQL_ROOT_PASSWORD: 123
       MYSQL_DATABASE: shopdevgo
@@ -11,14 +11,29 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./init:/docker-entrypoint-initdb.d
+    networks:
+      - default
 
   redis:
     image: redis:latest
-    container_name: redis-go
+    container_name: redis-container
     ports:
       - "6381:6379"
     volumes:
       - redis_data:/data
+
+  crm.shopdev.com:
+    container_name: go_backend_crm_shopdev
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - mysql
+      - redis
+    ports:
+      - "8008:8002"
 volumes:
   mysql_data:
   redis_data:
