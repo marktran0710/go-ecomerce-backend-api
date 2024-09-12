@@ -2,12 +2,12 @@ server:
   port: 8082
   mode: "dev"
 redis:
-  host: redis-container #127.0.0.1
-  port: 6379 #6381
+  host: 127.0.0.1
+  port: 6381 #6379
   password:
   database: 0
 mysql:
-  host: mysql-container #127.0.0.1
+  host: 127.0.0.1
   port: 3306
   username: root
   password: 123

@@ -23,17 +23,17 @@ services:
     volumes:
       - redis_data:/data
 
-  crm.shopdev.com:
-    container_name: go_backend_crm_shopdev
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: always
-    depends_on:
-      - mysql
-      - redis
-    ports:
-      - "8008:8002"
+  # crm.shopdev.com:
+  #   container_name: go_backend_crm_shopdev
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   restart: always
+  #   depends_on:
+  #     - mysql
+  #     - redis
+  #   ports:
+  #     - "8008:8002"
 volumes:
   mysql_data:
   redis_data:
