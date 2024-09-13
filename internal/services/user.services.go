@@ -1,7 +1,10 @@
 package services
 
 import (
+	"fmt"
+
 	"github.com/marktran77/go-ecomerce-backend-api/internal/repo"
+	"github.com/marktran77/go-ecomerce-backend-api/internal/utils/random"
 	"github.com/marktran77/go-ecomerce-backend-api/pkg/response"
 )
 
@@ -23,9 +26,22 @@ func NewUserService(userRepo repo.IUserRepo) IUserService {
 func (us *UserService) Register(email string, purpose string) int {
 	// 0. hashEmail
 
+	// 5. check OTP is available
+
+	// 6. user spam OTP
+
 	// 1. check email exists in db
+	if us.userRepo.GetUserByEmail(email) {
+		return response.ErrcodeUserHasExists
+	}
 
 	// 2. new OPT
+	otp := random.GenerateSixDigitOtp()
+	if purpose == "TEST_USER" {
+		otp = 123456
+	}
+
+	fmt.Printf("Otp is :::%d\n", otp)
 
 	// 3. save OPT in Redis with expiration time
 
