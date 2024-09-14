@@ -1,15 +1,23 @@
 package repo
 
-type IUserAuthRepository interface {
+import (
+	"fmt"
+	"time"
+
+	"github.com/marktran77/go-ecomerce-backend-api/global"
+)
+
+type IUserAuthRepo interface {
 	AddOTP(email string, otp int, expirationTime int64) error
 }
 
 type userAuthRepository struct{}
 
 func (u *userAuthRepository) AddOTP(email string, otp int, expirationTime int64) error {
-	return nil
+	key := fmt.Sprintf("user:%s:otp", email) // user:email:otp
+	return global.Rdb.SetEx(ctx, key, otp, time.Duration(expirationTime)).Err()
 }
 
-func NewUserAuthRepository() IUserAuthRepository {
+func NewUserAuthRepository() IUserAuthRepo {
 	return &userAuthRepository{}
 }

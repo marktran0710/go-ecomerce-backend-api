@@ -2,6 +2,7 @@ package services
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/marktran77/go-ecomerce-backend-api/internal/repo"
 	"github.com/marktran77/go-ecomerce-backend-api/internal/utils/random"
@@ -13,12 +14,14 @@ type IUserService interface {
 }
 
 type UserService struct {
-	userRepo repo.IUserRepo
+	userRepo     repo.IUserRepo
+	userAuthRepo repo.IUserAuthRepo
 }
 
-func NewUserService(userRepo repo.IUserRepo) IUserService {
+func NewUserService(userRepo repo.IUserRepo, userAuth repo.IUserAuthRepo) IUserService {
 	return &UserService{
-		userRepo: userRepo,
+		userRepo:     userRepo,
+		userAuthRepo: userAuth,
 	}
 }
 
@@ -44,6 +47,10 @@ func (us *UserService) Register(email string, purpose string) int {
 	fmt.Printf("Otp is :::%d\n", otp)
 
 	// 3. save OPT in Redis with expiration time
+	err := us.userAuthRepo.AddOTP(email, otp, int64(10*time.Minute))
+	if err != nil {
+		return response.ErrInvaildOTP
+	}
 
 	// 4. send Email OTP
 
